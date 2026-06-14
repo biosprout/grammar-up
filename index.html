@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GRAMMAR UP! 文法・英作文トレーニング</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F4FB;--panel:#FFFFFF;--primary:#3D2FB8;--primary-light:#6B5CE7;
+    --accent:#FF8A3D;--success:#18C29C;--danger:#FF5A6E;
+    --text:#1A1A2E;--sub:#7A7A94;--border:#E9E9F4;
+    --shadow:0 8px 28px rgba(61,47,184,.10);--shadow-sm:0 4px 14px rgba(61,47,184,.08);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:'Noto Sans JP',system-ui,sans-serif;color:var(--text);
+    background:linear-gradient(160deg,#EEEcFB 0%,#F4F4FB 40%,#F0F6FB 100%);min-height:100dvh;display:flex;justify-content:center;}
+  .app{width:100%;max-width:480px;min-height:100dvh;background:var(--bg);display:flex;flex-direction:column;position:relative;box-shadow:0 0 50px rgba(61,47,184,.06);}
+  .topbar{padding:18px 20px 14px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;background:linear-gradient(180deg,var(--bg) 70%,rgba(244,244,251,0));}
+  .brand{display:flex;flex-direction:column;line-height:1.05}
+  .brand .logo{font-family:'Poppins';font-weight:800;font-size:23px;letter-spacing:-.5px;color:var(--primary)}
+  .brand .logo span{color:var(--accent)}
+  .brand .sub{font-size:11px;color:var(--sub);font-weight:500;margin-top:2px}
+  .screen{flex:1;overflow-y:auto;padding:6px 20px 40px;-webkit-overflow-scrolling:touch}
+  .ring-card{background:var(--panel);border-radius:24px;padding:22px;box-shadow:var(--shadow);display:flex;align-items:center;gap:20px;margin-bottom:18px;}
+  .ring{position:relative;width:96px;height:96px;flex:0 0 auto}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .pct b{font-family:'Poppins';font-size:24px;font-weight:800;color:var(--primary);line-height:1}
+  .ring .pct small{font-size:9px;color:var(--sub);font-weight:600;margin-top:2px}
+  .ring-info h2{font-size:15px;font-weight:900;margin-bottom:8px}
+  .ring-info .stat{display:flex;gap:14px}
+  .ring-info .stat div{font-size:11px;color:var(--sub);font-weight:600}
+  .ring-info .stat b{display:block;font-family:'Poppins';font-size:19px;color:var(--text);font-weight:700}
+  .section-label{font-size:12px;font-weight:800;color:var(--sub);margin:8px 2px 10px;letter-spacing:.3px}
+  .chips{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 12px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto;background:var(--panel);border:1.5px solid var(--border);border-radius:14px;padding:10px 15px;font-size:13px;font-weight:700;color:var(--text);cursor:pointer;transition:.15s;white-space:nowrap;}
+  .chip small{display:block;font-size:10px;color:var(--sub);font-weight:600;margin-top:1px}
+  .chip:active{transform:scale(.97)}
+  .chip.weak{border-color:var(--danger);color:var(--danger)}
+  .cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mode{background:var(--panel);border-radius:20px;padding:18px 16px;cursor:pointer;box-shadow:var(--shadow-sm);border:1.5px solid transparent;transition:.15s;display:flex;flex-direction:column;gap:8px;}
+  .mode:active{transform:scale(.97)}
+  .mode .ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px}
+  .mode h3{font-size:15px;font-weight:900}
+  .mode p{font-size:11px;color:var(--sub);font-weight:500;line-height:1.4}
+  .mode.trans .ic{background:#FFE9DB}
+  .mode.essay .ic{background:#DEF7F0}
+  .mode.mix .ic{background:#EAE7FB}
+  .mode.review .ic{background:#FDE4E8}
+  .btn{border:none;border-radius:14px;font-family:inherit;font-weight:800;font-size:15px;padding:15px;cursor:pointer;transition:.15s;width:100%;}
+  .btn:active{transform:scale(.98)}
+  .btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-ghost{background:var(--panel);color:var(--primary);border:1.5px solid var(--border)}
+  .btn-accent{background:var(--accent);color:#fff}
+  .btn-success{background:var(--success);color:#fff}
+  .back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--sub);font-weight:700;font-size:14px;cursor:pointer;padding:6px 2px;margin-bottom:8px;font-family:inherit;}
+  .mode-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .mode-head h2{font-size:17px;font-weight:900}
+  .counter{font-family:'Poppins';font-weight:700;color:var(--sub);font-size:14px}
+  .progress-line{height:6px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:16px}
+  .progress-line i{display:block;height:100%;background:var(--primary);border-radius:999px;transition:width .3s}
+  .q-card{background:var(--panel);border-radius:20px;padding:22px 18px;box-shadow:var(--shadow);margin-bottom:14px}
+  .q-topic{font-size:10px;font-weight:800;color:var(--accent);letter-spacing:.5px;margin-bottom:10px;text-transform:uppercase}
+  .q-topic{display:flex;align-items:center;gap:8px}
+  .lvb{font-size:9px;padding:3px 8px;border-radius:7px;font-weight:800;text-transform:none;letter-spacing:0}
+  .lvb.easy{background:#DEF7F0;color:#0B8A6B}
+  .lvb.std{background:#EAE7FB;color:var(--primary)}
+  .lvb.hard{background:#FFE4E8;color:var(--danger)}
+  .q-text{font-size:19px;font-weight:700;line-height:1.5}
+  .q-jp{font-size:15px;color:var(--sub);font-weight:600;margin-top:8px}
+  .choices{display:grid;gap:10px;margin-bottom:6px}
+  .choice{background:var(--panel);border:1.5px solid var(--border);border-radius:14px;padding:15px;font-family:inherit;font-size:16px;font-weight:700;color:var(--text);cursor:pointer;text-align:left;transition:.12s;}
+  .choice:active{transform:scale(.99)}
+  .choice.correct{background:var(--success);border-color:var(--success);color:#fff}
+  .choice.wrong{background:var(--danger);border-color:var(--danger);color:#fff}
+  .choice.dim{opacity:.5}
+  .order-area{min-height:56px;background:#FAFAFE;border:1.5px dashed var(--border);border-radius:14px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-content:flex-start}
+  .order-pool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .token{background:var(--panel);border:1.5px solid var(--border);border-radius:11px;padding:9px 14px;font-family:'Poppins';font-weight:600;font-size:15px;color:var(--text);cursor:pointer;transition:.1s}
+  .token:active{transform:scale(.95)}
+  .token.placed{background:var(--primary);border-color:var(--primary);color:#fff}
+  .field input,.field textarea{width:100%;border:1.5px solid var(--border);border-radius:12px;padding:13px;font-family:inherit;font-size:16px;color:var(--text);background:#FCFCFE}
+  .field textarea{resize:vertical;min-height:120px;line-height:1.6}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--primary-light)}
+  .feedback{border-radius:14px;padding:15px;margin-bottom:12px}
+  .feedback.ok{background:#E7FAF4;border:1.5px solid var(--success)}
+  .feedback.ng{background:#FFF0F2;border:1.5px solid var(--danger)}
+  .feedback .label{font-weight:800;font-size:14px;margin-bottom:6px}
+  .feedback.ok .label{color:var(--success)}
+  .feedback.ng .label{color:var(--danger)}
+  .feedback .explain{font-size:13px;color:var(--text);line-height:1.6}
+  .feedback .ans{font-family:'Poppins';font-weight:700;color:var(--primary);font-size:16px}
+  .model-box{background:#F3F2FD;border-radius:14px;padding:15px;margin-bottom:12px}
+  .model-box h4{font-size:11px;font-weight:800;color:var(--sub);letter-spacing:.4px;margin-bottom:8px}
+  .model-box .m{font-size:16px;font-weight:600;line-height:1.6;margin-bottom:7px;color:var(--text)}
+  .model-box .m b{color:var(--primary);font-family:'Poppins';font-weight:700;margin-right:6px}
+  .points{list-style:none;margin-top:6px}
+  .points li{font-size:13px;color:var(--text);font-weight:600;padding:5px 0 5px 20px;position:relative;line-height:1.5}
+  .points li::before{content:'✓';position:absolute;left:0;color:var(--success);font-weight:800}
+  .row2{display:flex;gap:10px}
+  .row2 .btn{flex:1}
+  .result{text-align:center;padding:28px 10px}
+  .result .emoji{font-size:52px;margin-bottom:4px}
+  .result .big{font-family:'Poppins';font-size:56px;font-weight:800;color:var(--primary);line-height:1}
+  .result h2{font-size:19px;font-weight:900;margin:10px 0 4px}
+  .result p{color:var(--sub);font-weight:600;font-size:13px;margin-bottom:18px}
+  .essay-list{display:flex;flex-direction:column;gap:10px}
+  .essay-row{background:var(--panel);border-radius:15px;padding:15px 16px;box-shadow:var(--shadow-sm);cursor:pointer;transition:.12s;border:1.5px solid transparent}
+  .essay-row:active{transform:scale(.99)}
+  .essay-row.done{border-color:var(--success)}
+  .essay-row .p{font-size:14px;font-weight:700;line-height:1.5}
+  .essay-row .tag{font-size:10px;font-weight:800;color:var(--sub);margin-top:6px}
+  .essay-row.done .tag{color:var(--success)}
+  .help{font-size:11px;color:var(--sub);line-height:1.6;margin-top:8px}
+  .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:12px 22px;border-radius:999px;font-size:13px;font-weight:700;opacity:0;transition:.25s;pointer-events:none;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.2);}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .pop{position:fixed;inset:0;pointer-events:none;z-index:40;display:flex;align-items:center;justify-content:center}
+  .pop span{position:absolute;font-size:24px;animation:fly .8s ease-out forwards}
+  @keyframes fly{0%{opacity:1;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.2)}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar"><div class="brand"><div class="logo">GRAMMAR <span>UP!</span></div><div class="sub">文法・英作文 / 英検準1級まで</div></div></div>
+  <div class="screen" id="screen"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const STORE_KEY='grammarup_chihoko_v1';
+let mem=null;
+
+const TOPICS=[
+  {id:'basic',name:'基本文型・be動詞'},
+  {id:'tense',name:'時制（過去・未来・進行）'},
+  {id:'modal',name:'助動詞（基礎）'},
+  {id:'wh',name:'疑問詞・疑問文'},
+  {id:'prep',name:'前置詞・冠詞'},
+  {id:'perf',name:'現在完了・完了形'},
+  {id:'pass',name:'受動態'},
+  {id:'inf',name:'不定詞・動名詞'},
+  {id:'part',name:'分詞・分詞構文'},
+  {id:'rel',name:'関係詞'},
+  {id:'comp',name:'比較'},
+  {id:'subj',name:'仮定法'},
+  {id:'aux',name:'助動詞・接続詞'},
+];
+
+// type: mc(4択) / order(整序) / fill(空所補充)
+const GRAMMAR=[
+  {id:'b1',t:'basic',level:'easy',type:'mc',q:'She ___ a teacher.',ch:['am','is','are','be'],a:1,ex:'主語が3人称単数の be 動詞は is。'},
+  {id:'b2',t:'basic',level:'easy',type:'mc',q:'I ___ from Japan.',ch:['am','is','are','be'],a:0,ex:'主語が I の be 動詞は am。'},
+  {id:'b3',t:'basic',level:'easy',type:'mc',q:'They ___ students.',ch:['am','is','are','be'],a:2,ex:'主語が複数の be 動詞は are。'},
+  {id:'b4',t:'basic',level:'easy',type:'mc',q:'He ___ soccer every day.',ch:['play','plays','playing','played'],a:1,ex:'3人称単数現在は動詞に s。plays。'},
+  {id:'b5',t:'basic',level:'easy',type:'mc',q:'I ___ not like coffee.',ch:['am','do','does','is'],a:1,ex:'一般動詞の否定は do not。I do not like。'},
+  {id:'b6',t:'basic',level:'easy',type:'mc',q:'___ she have a dog?',ch:['Do','Does','Is','Are'],a:1,ex:'3人称単数の疑問文は Does + 主語 + 動詞の原形。'},
+  {id:'b7',t:'basic',level:'easy',type:'mc',q:'___ down, please.',ch:['Sit','Sitting','Sat','To sit'],a:0,ex:'命令文は動詞の原形で始める。Sit down。'},
+  {id:'b8',t:'basic',level:'easy',type:'mc',q:'___ be late.',ch:['Do not','Not','No','Does not'],a:0,ex:'否定の命令文は Do not + 原形。'},
+  {id:'b9',t:'basic',level:'easy',type:'mc',q:'There ___ a book on the desk.',ch:['is','are','am','be'],a:0,ex:'単数のものには There is。'},
+  {id:'b10',t:'basic',level:'easy',type:'mc',q:'There ___ many people in the park.',ch:['is','are','was','be'],a:1,ex:'複数のものには There are。'},
+  {id:'b11',t:'basic',level:'easy',type:'fill',q:'My sister ___ to school by bus. (go)',a:['goes'],ex:'3人称単数現在。go は goes。'},
+  {id:'b12',t:'basic',level:'easy',type:'mc',q:'We ___ very happy today.',ch:['am','is','are','be'],a:2,ex:'主語が複数(we)の be 動詞は are。'},
+  {id:'te1',t:'tense',level:'easy',type:'mc',q:'I ___ to the park yesterday.',ch:['go','went','gone','going'],a:1,ex:'yesterday は過去。go の過去形 went。'},
+  {id:'te2',t:'tense',level:'easy',type:'mc',q:'She ___ TV last night.',ch:['watch','watches','watched','watching'],a:2,ex:'last night は過去。watched。'},
+  {id:'te3',t:'tense',level:'easy',type:'mc',q:'He ___ not come to school yesterday.',ch:['do','does','did','is'],a:2,ex:'一般動詞の過去の否定は did not + 原形。'},
+  {id:'te4',t:'tense',level:'easy',type:'mc',q:'I ___ study English tomorrow.',ch:['will','am','was','did'],a:0,ex:'tomorrow は未来。will + 原形。'},
+  {id:'te5',t:'tense',level:'easy',type:'mc',q:'She is ___ to visit Kyoto next week.',ch:['go','going','went','goes'],a:1,ex:'be going to + 原形(〜する予定)。is going to visit。'},
+  {id:'te6',t:'tense',level:'easy',type:'mc',q:'They ___ playing soccer now.',ch:['is','am','are','be'],a:2,ex:'現在進行形 be + ~ing。主語複数で are。'},
+  {id:'te7',t:'tense',level:'easy',type:'mc',q:'I ___ reading a book when he called.',ch:['am','was','were','is'],a:1,ex:'過去進行形 was/were + ~ing。主語 I で was。'},
+  {id:'te8',t:'tense',level:'easy',type:'fill',q:'He is ___ a letter now. (write)',a:['writing'],ex:'現在進行形は be + ~ing。write は writing。'},
+  {id:'te9',t:'tense',level:'easy',type:'mc',q:'What ___ you do last Sunday?',ch:['do','did','does','are'],a:1,ex:'過去の疑問文は did + 主語 + 原形。'},
+  {id:'te10',t:'tense',level:'easy',type:'mc',q:'It ___ raining when I woke up.',ch:['is','was','are','be'],a:1,ex:'過去進行形。主語 it で was raining。'},
+  {id:'te11',t:'tense',level:'easy',type:'mc',q:'We ___ a great time at the party.',ch:['have','has','had','having'],a:2,ex:'過去の文(at the party)。have の過去 had。'},
+  {id:'te12',t:'tense',level:'easy',type:'mc',q:'___ you free tomorrow?',ch:['Are','Were','Did','Does'],a:0,ex:'be 動詞の疑問文。主語 you で Are。'},
+  {id:'m1',t:'modal',level:'easy',type:'mc',q:'I ___ swim very well.',ch:['can','am','do','will be'],a:0,ex:'「〜できる」能力の can。can swim。'},
+  {id:'m2',t:'modal',level:'easy',type:'mc',q:'You ___ wash your hands before lunch.',ch:['should','are','do','being'],a:0,ex:'「〜すべき」助言の should。'},
+  {id:'m3',t:'modal',level:'easy',type:'mc',q:'___ I open the window?',ch:['May','Do','Am','Did'],a:0,ex:'「〜してもよいですか」許可の May I。'},
+  {id:'m4',t:'modal',level:'easy',type:'mc',q:'We ___ to finish this today.',ch:['have','has','having','are'],a:0,ex:'「〜しなければならない」have to。主語 we で have to。'},
+  {id:'m5',t:'modal',level:'easy',type:'mc',q:'He ___ be at home; the lights are on.',ch:['must','can not','should not','may not'],a:0,ex:'「〜にちがいない」強い推量の must。'},
+  {id:'m6',t:'modal',level:'easy',type:'mc',q:'You ___ not run here.',ch:['must','do','are','will'],a:0,ex:'「〜してはいけない」禁止の must not。'},
+  {id:'m7',t:'modal',level:'easy',type:'mc',q:'___ you help me?',ch:['Could','Did','Was','Do you can'],a:0,ex:'「〜してくれますか」ていねいな依頼の Could you。'},
+  {id:'m8',t:'modal',level:'easy',type:'mc',q:'It ___ rain this afternoon.',ch:['may','do','is','are'],a:0,ex:'「〜かもしれない」推量の may。'},
+  {id:'m9',t:'modal',level:'easy',type:'mc',q:'She ___ speak three languages.',ch:['can','is','does','has'],a:0,ex:'能力の can。can speak。'},
+  {id:'m10',t:'modal',level:'easy',type:'mc',q:'You ___ better see a doctor.',ch:['had','have','has','did'],a:0,ex:'「〜したほうがよい」had better + 原形。'},
+  {id:'m11',t:'modal',level:'easy',type:'mc',q:'Students ___ wear a uniform at this school.',ch:['must','are','do','will be'],a:0,ex:'「〜しなければならない」義務の must。'},
+  {id:'w1',t:'wh',level:'easy',type:'mc',q:'___ is your name?',ch:['What','Who','Where','When'],a:0,ex:'名前をたずねる。What is your name?'},
+  {id:'w2',t:'wh',level:'easy',type:'mc',q:'___ do you live?',ch:['What','Who','Where','Why'],a:2,ex:'場所をたずねる Where。'},
+  {id:'w3',t:'wh',level:'easy',type:'mc',q:'___ is your birthday?',ch:['What','When','Where','Who'],a:1,ex:'時をたずねる When。'},
+  {id:'w4',t:'wh',level:'easy',type:'mc',q:'___ are you crying?',ch:['What','Why','Where','Who'],a:1,ex:'理由をたずねる Why。'},
+  {id:'w5',t:'wh',level:'easy',type:'mc',q:'___ much is this bag?',ch:['How','What','Why','Who'],a:0,ex:'値段をたずねる How much。'},
+  {id:'w6',t:'wh',level:'easy',type:'mc',q:'___ old are you?',ch:['How','What','When','Who'],a:0,ex:'年齢をたずねる How old。'},
+  {id:'w7',t:'wh',level:'easy',type:'mc',q:'___ is that man?',ch:['What','Who','Where','Why'],a:1,ex:'人をたずねる Who。'},
+  {id:'w8',t:'wh',level:'easy',type:'mc',q:'___ bag is this?',ch:['Whose','Who','What','Which'],a:0,ex:'「だれの」所有をたずねる Whose。'},
+  {id:'w9',t:'wh',level:'easy',type:'mc',q:'___ do you go to school?',ch:['What','How','Who','Whose'],a:1,ex:'手段をたずねる How(どうやって)。'},
+  {id:'w10',t:'wh',level:'easy',type:'mc',q:'___ one do you like, this or that?',ch:['Which','What','Who','Where'],a:0,ex:'2つから選ぶときは Which。'},
+  {id:'pr1',t:'prep',level:'easy',type:'mc',q:'I get up ___ seven.',ch:['at','on','in','to'],a:0,ex:'時刻には at。at seven。'},
+  {id:'pr2',t:'prep',level:'easy',type:'mc',q:'My birthday is ___ May.',ch:['at','on','in','to'],a:2,ex:'月には in。in May。'},
+  {id:'pr3',t:'prep',level:'easy',type:'mc',q:'I will meet you ___ Monday.',ch:['at','on','in','to'],a:1,ex:'曜日・日付には on。on Monday。'},
+  {id:'pr4',t:'prep',level:'easy',type:'mc',q:'The cat is ___ the table.',ch:['on','in','at','to'],a:0,ex:'「〜の上に」接触は on。'},
+  {id:'pr5',t:'prep',level:'easy',type:'mc',q:'She lives ___ Tokyo.',ch:['at','on','in','to'],a:2,ex:'広い場所(都市)には in。'},
+  {id:'pr6',t:'prep',level:'easy',type:'mc',q:'I go to school ___ bus.',ch:['by','on','in','with'],a:0,ex:'交通手段には by。by bus。'},
+  {id:'pr7',t:'prep',level:'easy',type:'mc',q:'This is a present ___ you.',ch:['to','for','at','on'],a:1,ex:'「〜のための」は for。'},
+  {id:'pr8',t:'prep',level:'easy',type:'mc',q:'I have studied English ___ three years.',ch:['for','since','at','in'],a:0,ex:'期間には for。for three years。'},
+  {id:'pr9',t:'prep',level:'easy',type:'mc',q:'Wait ___ me here.',ch:['for','to','at','on'],a:0,ex:'wait for(〜を待つ)。'},
+  {id:'pr10',t:'prep',level:'easy',type:'mc',q:'I am good ___ math.',ch:['at','in','on','to'],a:0,ex:'be good at(〜が得意)。'},
+  {id:'pr11',t:'prep',level:'easy',type:'mc',q:'He is afraid ___ dogs.',ch:['of','at','in','on'],a:0,ex:'be afraid of(〜をこわがる)。'},
+  {id:'pr12',t:'prep',level:'easy',type:'mc',q:'There is ___ apple on the plate.',ch:['a','an','the','no'],a:1,ex:'母音で始まる語の前は an。an apple。'},
+  {id:'pe1',t:'perf',level:'easy',type:'mc',q:'I have ___ my lunch.',ch:['eat','ate','eaten','eating'],a:2,ex:'現在完了 have + 過去分詞。eat は eaten。'},
+  {id:'pe2',t:'perf',level:'easy',type:'mc',q:'She has ___ to Tokyo.',ch:['go','went','gone','going'],a:2,ex:'have gone to(〜へ行ってしまった)。gone。'},
+  {id:'pase1',t:'pass',level:'easy',type:'mc',q:'This room is ___ every day.',ch:['clean','cleans','cleaned','cleaning'],a:2,ex:'受動態 is + 過去分詞。is cleaned。'},
+  {id:'pase2',t:'pass',level:'easy',type:'mc',q:'The cake was ___ by my mother.',ch:['make','made','making','makes'],a:1,ex:'過去の受動態。was made。'},
+  {id:'ie1',t:'inf',level:'easy',type:'mc',q:'I want ___ some water.',ch:['drink','to drink','drinking','drank'],a:1,ex:'want to + 原形(〜したい)。to drink。'},
+  {id:'ie2',t:'inf',level:'easy',type:'mc',q:'She started ___ a song.',ch:['sing','to sing','sang','sings'],a:1,ex:'start to + 原形(〜し始める)。to sing。'},
+  {id:'ce1',t:'comp',level:'easy',type:'mc',q:'This is ___ than that.',ch:['big','bigger','biggest','more big'],a:1,ex:'than があるので比較級。bigger。'},
+  {id:'ce2',t:'comp',level:'easy',type:'mc',q:'She is the ___ in her class.',ch:['tall','taller','tallest','most tall'],a:2,ex:'最上級。the tallest。'},
+  {id:'re1',t:'rel',level:'easy',type:'mc',q:'I have a friend ___ can speak English.',ch:['who','which','where','what'],a:0,ex:'人が先行詞で主格の who。'},
+  {id:'pte1',t:'part',level:'easy',type:'mc',q:'The ___ dog is cute.',ch:['sleep','sleeping','slept','to sleep'],a:1,ex:'「眠っている犬」現在分詞。sleeping。'},
+  {id:'se1',t:'subj',level:'easy',type:'mc',q:'If it ___ tomorrow, I will not go.',ch:['rains','rained','will rain','would'],a:0,ex:'未来の条件でも if 節は現在形。rains。'},
+  {id:'ae1',t:'aux',level:'easy',type:'mc',q:'I ___ play the guitar.',ch:['can','am','do','will be'],a:0,ex:'能力の can。can play。'},
+  {id:'p1',t:'perf',level:'std',type:'mc',q:'I ___ Kyoto three times.',ch:['visit','visited','have visited','visiting'],a:2,ex:'「3回」という経験を表す現在完了。have visited。'},
+  {id:'p2',t:'perf',level:'std',type:'mc',q:'She ___ here since 2020.',ch:['lives','lived','has lived','is living'],a:2,ex:'since(〜以来)は継続の現在完了とともに使う。has lived。'},
+  {id:'p3',t:'perf',level:'std',type:'fill',q:'Have you ___ your homework yet? (finish)',a:['finished'],ex:'現在完了は have/has + 過去分詞。finish の過去分詞 finished。'},
+  {id:'p4',t:'perf',level:'std',type:'mc',q:'___ you ever been to Australia?',ch:['Did','Have','Are','Were'],a:1,ex:'ever を使った経験を尋ねる現在完了。Have you ever been。'},
+  {id:'p5',t:'perf',level:'std',type:'order',jp:'彼はちょうど駅に着いたところだ。',tok:['He','has','just','arrived','at','the','station']},
+  {id:'p6',t:'perf',level:'std',type:'mc',q:'The train ___ already left when I arrived.',ch:['has','had','have','was'],a:1,ex:'過去のある時点より前(大過去)を表す過去完了。had left。'},
+  {id:'p7',t:'perf',level:'std',type:'mc',q:'I have known him ___ ten years.',ch:['for','since','in','at'],a:0,ex:'for + 期間(〜の間)。'},
+  {id:'p8',t:'perf',level:'std',type:'mc',q:'How long ___ you lived here?',ch:['do','are','have','did'],a:2,ex:'継続期間を尋ねる現在完了。Have you lived。'},
+  {id:'p9',t:'perf',level:'std',type:'mc',q:'She has ___ finished her work.',ch:['yet','already','ever','since'],a:1,ex:'肯定文で「もう〜した」は already。'},
+  {id:'p10',t:'perf',level:'std',type:'mc',q:'I have not seen him ___.',ch:['already','yet','ever','just'],a:1,ex:'否定文で「まだ〜ない」は yet。'},
+  {id:'p11',t:'perf',level:'std',type:'fill',q:'This is the best movie I have ever ___. (see)',a:['seen'],ex:'have ever + 過去分詞。seen。'},
+  {id:'p12',t:'perf',level:'std',type:'mc',q:'When I got home, my mother ___ dinner.',ch:['has cooked','had cooked','cooks','cook'],a:1,ex:'家に着いた時点より前なので過去完了。had cooked。'},
+  {id:'p13',t:'perf',level:'std',type:'order',jp:'私は一度も寿司を食べたことがない。',tok:['I','have','never','eaten','sushi']},
+  {id:'p14',t:'perf',level:'hard',type:'mc',q:'By next year, I ___ here for five years.',ch:['will work','will have worked','work','worked'],a:1,ex:'未来のある時点までの完了は未来完了。will have worked。'},
+  {id:'pa1',t:'pass',level:'std',type:'mc',q:'This bridge ___ in 1990.',ch:['built','was built','is built','builds'],a:1,ex:'過去の受動態。was built。'},
+  {id:'pa2',t:'pass',level:'std',type:'mc',q:'English ___ in many countries.',ch:['speaks','is spoken','spoke','speaking'],a:1,ex:'現在の受動態。is spoken。'},
+  {id:'pa3',t:'pass',level:'std',type:'fill',q:'The window was ___ by the boy. (break)',a:['broken'],ex:'受動態 was + 過去分詞。broken。'},
+  {id:'pa4',t:'pass',level:'std',type:'order',jp:'この本は多くの人に読まれている。',tok:['This','book','is','read','by','many','people']},
+  {id:'pa5',t:'pass',level:'std',type:'mc',q:'These cars ___ in Japan.',ch:['make','made','are made','is made'],a:2,ex:'主語複数の受動態。are made。'},
+  {id:'pa6',t:'pass',level:'std',type:'mc',q:'The room ___ cleaned every day.',ch:['is','are','was','has'],a:0,ex:'主語単数の現在の受動態 is cleaned。'},
+  {id:'pa7',t:'pass',level:'std',type:'mc',q:'This song ___ by young people now.',ch:['loves','is loved','loving','love'],a:1,ex:'現在の受動態。is loved。'},
+  {id:'pa8',t:'pass',level:'std',type:'mc',q:'The letter ___ written by her last night.',ch:['is','was','has','does'],a:1,ex:'過去の受動態。was written。'},
+  {id:'pa9',t:'pass',level:'std',type:'fill',q:'Rice is ___ in many Asian countries. (grow)',a:['grown'],ex:'受動態 is + 過去分詞。grown。'},
+  {id:'pa10',t:'pass',level:'std',type:'mc',q:'Mt. Fuji ___ be seen from here.',ch:['can','can be','is can','be'],a:1,ex:'助動詞 + 受動態は 助動詞 + be + 過去分詞。can be seen。'},
+  {id:'pa11',t:'pass',level:'hard',type:'mc',q:'The work ___ finished yet.',ch:['is not','has not','was not been','has not been'],a:3,ex:'完了形の受動態。has not been finished。'},
+  {id:'pa12',t:'pass',level:'std',type:'order',jp:'その絵は有名な画家によって描かれた。',tok:['The','picture','was','painted','by','a','famous','artist']},
+  {id:'pa13',t:'pass',level:'std',type:'mc',q:'I ___ surprised at the news.',ch:['was','do','have','being'],a:0,ex:'be surprised at(〜に驚く)。was surprised。'},
+  {id:'i1',t:'inf',level:'std',type:'mc',q:'I want ___ a doctor.',ch:['be','to be','being','been'],a:1,ex:'want to do。to be。'},
+  {id:'i2',t:'inf',level:'std',type:'mc',q:'She enjoys ___ tennis.',ch:['play','to play','playing','played'],a:2,ex:'enjoy は動名詞。playing。'},
+  {id:'i3',t:'inf',level:'std',type:'fill',q:'He is good at ___ songs. (sing)',a:['singing'],ex:'be good at + 動名詞。singing。'},
+  {id:'i4',t:'inf',level:'std',type:'mc',q:'I am looking forward to ___ you.',ch:['see','seeing','saw','seen'],a:1,ex:'look forward to の to は前置詞。seeing。'},
+  {id:'i5',t:'inf',level:'std',type:'order',jp:'私は彼に手伝ってくれるよう頼んだ。',tok:['I','asked','him','to','help','me']},
+  {id:'i6',t:'inf',level:'std',type:'mc',q:'It is important ___ English every day.',ch:['study','to study','studying','studied'],a:1,ex:'形式主語 It is ... to do。to study。'},
+  {id:'i7',t:'inf',level:'std',type:'mc',q:'I decided ___ abroad.',ch:['go','to go','going','went'],a:1,ex:'decide to do。to go。'},
+  {id:'i8',t:'inf',level:'std',type:'mc',q:'Would you mind ___ the door?',ch:['open','to open','opening','opened'],a:2,ex:'mind は動名詞。opening。'},
+  {id:'i9',t:'inf',level:'std',type:'mc',q:'He stopped ___ to me.',ch:['talk','to talk','talking','talked'],a:2,ex:'stop ~ing(〜するのをやめる)。talking。'},
+  {id:'i10',t:'inf',level:'std',type:'fill',q:'I am interested in ___ about science. (learn)',a:['learning'],ex:'be interested in + 動名詞。learning。'},
+  {id:'i11',t:'inf',level:'std',type:'mc',q:'My dream is ___ a teacher.',ch:['become','to become','will become','became'],a:1,ex:'補語の不定詞。to become。'},
+  {id:'i12',t:'inf',level:'std',type:'mc',q:'She told me ___ late.',ch:['not be','not to be','to not be','be not'],a:1,ex:'不定詞の否定は not to do。'},
+  {id:'i13',t:'inf',level:'hard',type:'order',jp:'私は何を言うべきかわからなかった。',tok:['I','did','not','know','what','to','say']},
+  {id:'i14',t:'inf',level:'std',type:'mc',q:'Thank you for ___ me.',ch:['help','to help','helping','helped'],a:2,ex:'前置詞 for の後は動名詞。helping。'},
+  {id:'pt1',t:'part',level:'std',type:'mc',q:'Look at the ___ baby.',ch:['sleep','sleeping','slept','to sleep'],a:1,ex:'能動は現在分詞。sleeping baby。'},
+  {id:'pt2',t:'part',level:'std',type:'mc',q:'I saw a movie ___ in France.',ch:['make','making','made','makes'],a:2,ex:'受動は過去分詞。a movie made。'},
+  {id:'pt3',t:'part',level:'hard',type:'mc',q:'___ from the hill, the town looks beautiful.',ch:['Seeing','Seen','Saw','To see'],a:1,ex:'受動の分詞構文。Seen from。'},
+  {id:'pt4',t:'part',level:'std',type:'mc',q:'___ tired, he went to bed early.',ch:['Feeling','Felt','Feel','To feel'],a:0,ex:'能動の分詞構文。Feeling tired。'},
+  {id:'pt5',t:'part',level:'std',type:'fill',q:'The girl ___ over there is my sister. (stand)',a:['standing'],ex:'現在分詞の後置修飾。standing。'},
+  {id:'pt6',t:'part',level:'std',type:'mc',q:'The ___ leaves are beautiful.',ch:['fall','falling','fell','fallen'],a:1,ex:'能動は現在分詞。falling leaves。'},
+  {id:'pt7',t:'part',level:'std',type:'mc',q:'I had my car ___ yesterday.',ch:['repair','repairing','repaired','to repair'],a:2,ex:'have + O + 過去分詞。had my car repaired。'},
+  {id:'pt8',t:'part',level:'hard',type:'mc',q:'___ in simple English, this book is easy to read.',ch:['Writing','Written','Wrote','Write'],a:1,ex:'受動の分詞構文。Written。'},
+  {id:'pt9',t:'part',level:'std',type:'mc',q:'The boy ___ by the dog started to cry.',ch:['chasing','chased','chase','to chase'],a:1,ex:'受動は過去分詞。chased。'},
+  {id:'pt10',t:'part',level:'std',type:'fill',q:'There were many people ___ for the bus. (wait)',a:['waiting'],ex:'現在分詞の後置修飾。waiting。'},
+  {id:'pt11',t:'part',level:'hard',type:'mc',q:'___ what to do, she asked her teacher.',ch:['Not knowing','Not known','Knowing not','Don\'t know'],a:0,ex:'否定の分詞構文は Not + 分詞。'},
+  {id:'pt12',t:'part',level:'std',type:'order',jp:'音楽を聞きながら、彼女は料理した。',tok:['Listening','to','music','she','cooked']},
+  {id:'pt13',t:'part',level:'hard',type:'mc',q:'Generally ___, boys like sports.',ch:['speak','speaking','spoken','spoke'],a:1,ex:'Generally speaking は慣用的分詞構文。'},
+  {id:'r1',t:'rel',level:'std',type:'mc',q:'The man ___ lives next door is a doctor.',ch:['which','who','whom','whose'],a:1,ex:'人の主格。who。'},
+  {id:'r2',t:'rel',level:'std',type:'mc',q:'This is the house ___ I was born.',ch:['which','that','where','who'],a:2,ex:'場所 + 関係副詞 where。'},
+  {id:'r3',t:'rel',level:'std',type:'mc',q:'I have a friend ___ father is a pilot.',ch:['who','which','whose','whom'],a:2,ex:'所有 whose。'},
+  {id:'r4',t:'rel',level:'std',type:'order',jp:'これは私が昨日買った本です。',tok:['This','is','the','book','that','I','bought','yesterday']},
+  {id:'r5',t:'rel',level:'std',type:'mc',q:'Tell me the reason ___ you were late.',ch:['why','which','where','who'],a:0,ex:'理由 + 関係副詞 why。'},
+  {id:'r6',t:'rel',level:'std',type:'mc',q:'The girl ___ is singing is my sister.',ch:['which','who','whom','whose'],a:1,ex:'人の主格。who。'},
+  {id:'r7',t:'rel',level:'std',type:'mc',q:'The book ___ is on the desk is mine.',ch:['who','which','whose','whom'],a:1,ex:'物の主格。which。'},
+  {id:'r8',t:'rel',level:'std',type:'mc',q:'Do you remember the day ___ we first met?',ch:['which','when','where','who'],a:1,ex:'時 + 関係副詞 when。'},
+  {id:'r9',t:'rel',level:'hard',type:'mc',q:'This is ___ I wanted to say.',ch:['that','which','what','who'],a:2,ex:'先行詞を含む what。'},
+  {id:'r10',t:'rel',level:'std',type:'mc',q:'The man ___ I met yesterday was kind.',ch:['who','which','whose','what'],a:0,ex:'人の目的格。who / whom。'},
+  {id:'r11',t:'rel',level:'hard',type:'mc',q:'Tokyo, ___ is the capital of Japan, is big.',ch:['that','which','what','where'],a:1,ex:'非制限用法では which。'},
+  {id:'r12',t:'rel',level:'std',type:'order',jp:'私には医者である友人がいる。',tok:['I','have','a','friend','who','is','a','doctor']},
+  {id:'c1',t:'comp',level:'std',type:'mc',q:'He is ___ than his brother.',ch:['tall','taller','tallest','more tall'],a:1,ex:'比較級。taller。'},
+  {id:'c2',t:'comp',level:'std',type:'mc',q:'This is the ___ book in the library.',ch:['interesting','more interesting','most interesting','interestingest'],a:2,ex:'最上級。the most interesting。'},
+  {id:'c3',t:'comp',level:'std',type:'mc',q:'She can run as ___ as he can.',ch:['fast','faster','fastest','more fast'],a:0,ex:'as ... as は原級。fast。'},
+  {id:'c4',t:'comp',level:'std',type:'fill',q:'Health is ___ than money. (important)',a:['more important'],ex:'長い形容詞は more + 原級。more important。'},
+  {id:'c5',t:'comp',level:'std',type:'mc',q:'The ___ you study, the more you learn.',ch:['hard','harder','hardest','more hard'],a:1,ex:'The 比較級, the 比較級。harder。'},
+  {id:'c6',t:'comp',level:'std',type:'mc',q:'This box is ___ than that one.',ch:['heavy','heavier','heaviest','more heavy'],a:1,ex:'比較級。heavier。'},
+  {id:'c7',t:'comp',level:'std',type:'mc',q:'Tokyo is one of the ___ cities in the world.',ch:['big','bigger','biggest','most big'],a:2,ex:'one of the 最上級 複数。biggest。'},
+  {id:'c8',t:'comp',level:'std',type:'mc',q:'My bag is not as ___ as yours.',ch:['expensive','more expensive','most expensive','expensiver'],a:0,ex:'not as ... as は原級。expensive。'},
+  {id:'c9',t:'comp',level:'std',type:'mc',q:'This is ___ more interesting than that.',ch:['very','much','many','more'],a:1,ex:'比較級を強めるのは much。'},
+  {id:'c10',t:'comp',level:'std',type:'fill',q:'She is the ___ student in her class. (smart)',a:['smartest'],ex:'短い形容詞の最上級。smartest。'},
+  {id:'c11',t:'comp',level:'hard',type:'mc',q:'He studies ___ than any other student.',ch:['hard','harder','hardest','more hard'],a:1,ex:'比較級 + than any other。'},
+  {id:'c12',t:'comp',level:'std',type:'order',jp:'富士山は日本で一番高い山だ。',tok:['Mt.','Fuji','is','the','highest','mountain','in','Japan']},
+  {id:'c13',t:'comp',level:'hard',type:'mc',q:'The more you have, ___ more you want.',ch:['a','the','much','very'],a:1,ex:'The 比較級, the 比較級。the more。'},
+  {id:'s1',t:'subj',level:'std',type:'mc',q:'If I ___ you, I would accept the offer.',ch:['am','was','were','be'],a:2,ex:'仮定法過去の be は were。'},
+  {id:'s2',t:'subj',level:'hard',type:'mc',q:'If I had studied harder, I ___ passed the exam.',ch:['will have','would have','would','will'],a:1,ex:'仮定法過去完了。would have passed。'},
+  {id:'s3',t:'subj',level:'std',type:'mc',q:'I wish I ___ speak French.',ch:['can','could','will','am'],a:1,ex:'I wish + 仮定法。could。'},
+  {id:'s4',t:'subj',level:'std',type:'order',jp:'もっと時間があればいいのに。',tok:['I','wish','I','had','more','time']},
+  {id:'s5',t:'subj',level:'hard',type:'mc',q:'___ it not for water, we could not live.',ch:['Were','Was','Be','Is'],a:0,ex:'If省略・倒置。Were it not for。'},
+  {id:'s6',t:'subj',level:'std',type:'mc',q:'If it ___ tomorrow, I will stay home.',ch:['rains','rained','will rain','would rain'],a:0,ex:'未来の条件は現在形。rains。'},
+  {id:'s7',t:'subj',level:'std',type:'mc',q:'If I had a car, I ___ drive to work.',ch:['will','would','can','do'],a:1,ex:'仮定法過去。would + 原形。'},
+  {id:'s8',t:'subj',level:'hard',type:'mc',q:'I wish I ___ harder when I was young.',ch:['study','studied','had studied','have studied'],a:2,ex:'過去の後悔。had studied。'},
+  {id:'s9',t:'subj',level:'hard',type:'mc',q:'He talks ___ he knew everything.',ch:['as if','even if','if only','what if'],a:0,ex:'as if + 仮定法。'},
+  {id:'s10',t:'subj',level:'std',type:'mc',q:'___ I were a bird!',ch:['If only','Even if','As if','What if'],a:0,ex:'If only + 仮定法(願望)。'},
+  {id:'s11',t:'subj',level:'hard',type:'order',jp:'もし私があなたなら、そうはしないだろう。',tok:['If','I','were','you','I','would','not','do','that']},
+  {id:'s12',t:'subj',level:'hard',type:'mc',q:'Without your help, I ___ have failed.',ch:['will','would','can','may'],a:1,ex:'Without(仮定)。would have failed。'},
+  {id:'a1',t:'aux',level:'std',type:'mc',q:'You ___ finish this by tomorrow.',ch:['must','musts','are must','do must'],a:0,ex:'must の後は原形。'},
+  {id:'a2',t:'aux',level:'std',type:'mc',q:'She ___ be tired; she worked all day.',ch:['must','can not','should','need'],a:0,ex:'強い推量の must。'},
+  {id:'a3',t:'aux',level:'std',type:'mc',q:'___ it was raining, we went out.',ch:['Because','Although','So','If'],a:1,ex:'譲歩の Although。'},
+  {id:'a4',t:'aux',level:'std',type:'mc',q:'Study hard, ___ you will fail.',ch:['and','but','or','so'],a:2,ex:'命令文 + or(さもないと)。'},
+  {id:'a5',t:'aux',level:'std',type:'mc',q:'He ran fast ___ he could catch the bus.',ch:['so that','because of','in spite of','such as'],a:0,ex:'目的の so that。'},
+  {id:'a6',t:'aux',level:'std',type:'mc',q:'You ___ not smoke here.',ch:['must','can','may to','are'],a:0,ex:'禁止の must not。'},
+  {id:'a7',t:'aux',level:'std',type:'mc',q:'___ you are tired, you should rest.',ch:['Although','If','But','So'],a:1,ex:'条件の If。'},
+  {id:'a8',t:'aux',level:'hard',type:'mc',q:'I ___ rather stay home tonight.',ch:['would','should','must','will'],a:0,ex:'would rather + 原形。'},
+  {id:'a9',t:'aux',level:'hard',type:'mc',q:'He is ___ kind that everyone likes him.',ch:['so','such','very','too'],a:0,ex:'so + 形容詞 + that。'},
+  {id:'a10',t:'aux',level:'std',type:'mc',q:'___ he nor his brother came.',ch:['Either','Neither','Both','Not'],a:1,ex:'neither A nor B。'},
+  {id:'a11',t:'aux',level:'std',type:'mc',q:'We can go ___ by bus or by train.',ch:['either','neither','both','not'],a:0,ex:'either A or B。'},
+  {id:'a12',t:'aux',level:'std',type:'mc',q:'It was raining; ___, we went out.',ch:['however','because','therefore','so'],a:0,ex:'逆接の however。'},
+  {id:'a13',t:'aux',level:'std',type:'order',jp:'寝る前に歯を磨きなさい。',tok:['Brush','your','teeth','before','you','go','to','bed']}
+];
+
+const TRANS=[
+  {id:'t1',jp:'彼はもう昼食を食べた。',models:['He has already had lunch.','He has already eaten lunch.'],points:['現在完了 has + 過去分詞','already の位置']},
+  {id:'t2',jp:'この写真は父によって撮られた。',models:['This picture was taken by my father.','This photo was taken by my father.'],points:['受動態 was taken','by 〜（動作主）']},
+  {id:'t3',jp:'私は彼女に会えてうれしい。',models:['I am glad to see her.','I am happy to meet her.'],points:['感情の原因を表す不定詞 glad to do']},
+  {id:'t4',jp:'向こうに立っている女の子は私の妹だ。',models:['The girl standing over there is my sister.'],points:['現在分詞の後置修飾 standing']},
+  {id:'t5',jp:'私が昨日読んだ本はおもしろかった。',models:['The book I read yesterday was interesting.','The book that I read yesterday was interesting.'],points:['目的格の関係代名詞（省略可）','read の過去形は read']},
+  {id:'t6',jp:'健康はお金より大切だ。',models:['Health is more important than money.'],points:['比較級 more important than']},
+  {id:'t7',jp:'もし私が鳥なら、あなたのところへ飛んでいくのに。',models:['If I were a bird, I would fly to you.'],points:['仮定法過去 If S were ...','主節は would + 原形']},
+  {id:'t8',jp:'英語を勉強すればするほど、楽しくなる。',models:['The more I study English, the more I enjoy it.'],points:['The 比較級 ..., the 比較級 ...']},
+  {id:'t9',jp:'彼は疲れていたにもかかわらず、働き続けた。',models:['Although he was tired, he kept working.','He kept working although he was tired.'],points:['譲歩の although','keep ~ing']},
+  {id:'t10',jp:'私はピアノを弾くのが得意ではない。',models:['I am not good at playing the piano.'],points:['be good at + 動名詞','play the piano']},
+  {id:'t11',jp:'その知らせを聞いて、彼女は泣き出した。',models:['Hearing the news, she began to cry.','When she heard the news, she started crying.'],points:['分詞構文 Hearing ...','begin to do / start ~ing']},
+  {id:'t12',jp:'これは私が今までに見た中で一番美しい景色だ。',models:['This is the most beautiful view I have ever seen.'],points:['最上級','have ever seen（経験）']},
+  {id:'t13',jp:'彼女は3年間ピアノを習っている。',models:['She has been learning the piano for three years.','She has learned the piano for three years.'],points:['現在完了（継続）','for + 期間']},
+  {id:'t14',jp:'この問題は私には難しすぎる。',models:['This question is too difficult for me.'],points:['too + 形容詞（〜すぎる）','for + 人']},
+  {id:'t15',jp:'駅への行き方を教えてください。',models:['Could you tell me how to get to the station?','Please tell me the way to the station.'],points:['how to do（〜の仕方）','ていねいな依頼 Could you']},
+  {id:'t16',jp:'彼は私に医者になるよう勧めた。',models:['He advised me to become a doctor.'],points:['advise + 人 + to do']},
+  {id:'t17',jp:'私は宿題を終えなければならない。',models:['I have to finish my homework.','I must finish my homework.'],points:['have to / must（〜しなければならない）']},
+  {id:'t18',jp:'この本は読む価値がある。',models:['This book is worth reading.'],points:['be worth ~ing（〜する価値がある）']},
+  {id:'t19',jp:'一生懸命練習すれば、上手になるだろう。',models:['If you practice hard, you will get better.'],points:['条件の if（節内は現在形）','get + 比較級']},
+  {id:'t20',jp:'私はその映画を見たことを覚えている。',models:['I remember watching the movie.','I remember seeing the movie.'],points:['remember ~ing（〜したのを覚えている）']},
+  {id:'t21',jp:'彼は遅れたことを謝った。',models:['He apologized for being late.'],points:['apologize for + 動名詞']},
+  {id:'t22',jp:'暗くならないうちに帰ろう。',models:['Let us go home before it gets dark.','Let\'s go home before it gets dark.'],points:['before 節','get + 形容詞（〜になる）']},
+  {id:'t23',jp:'私は彼が正直だと思う。',models:['I think that he is honest.','I think he is honest.'],points:['think (that) + 文','that は省略可']},
+  {id:'t24',jp:'何か温かい飲み物がほしい。',models:['I want something hot to drink.'],points:['something + 形容詞 + to do','-thing は形容詞が後ろ']},
+  {id:'t25',jp:'彼女は風邪をひいて学校を休んだ。',models:['She was absent from school because she had a cold.'],points:['be absent from（〜を休む）','have a cold']},
+  {id:'t26',jp:'できるだけ早く来てください。',models:['Please come as soon as possible.'],points:['as soon as possible（できるだけ早く）']},
+  {id:'t27',jp:'私は次に何をすべきかわからない。',models:['I do not know what to do next.','I don\'t know what to do next.'],points:['what to do（何を〜すべきか）']},
+  {id:'t28',jp:'彼女は私が手伝うことを期待していた。',models:['She expected me to help her.'],points:['expect + 人 + to do']}
+];
+
+const ESSAYS=[
+  {id:'e1',prompt:'Do you think students should be allowed to use smartphones at school? Write your opinion in about 50-60 words.',model:'I think students should be allowed to use smartphones at school. First, they can quickly look up useful information for their lessons. Second, smartphones help students stay safe because they can call their families in an emergency. For these reasons, I believe smartphones can be a useful tool for learning.'},
+  {id:'e2',prompt:'Which do you prefer, living in the city or in the countryside? About 50-60 words.',model:'I prefer living in the city. First, there are many convenient places such as shops, hospitals, and stations near my home. Second, the city gives me more chances to study and find a job in the future. Although the countryside is quiet and beautiful, I think city life is more exciting and useful.'},
+  {id:'e3',prompt:'Do you think it is important for students to play sports? About 50-60 words.',model:'I think it is important for students to play sports. First, playing sports keeps them healthy and strong. Second, team sports teach them how to work with others and never give up. Of course, studying is also important, but I believe sports help students grow in many ways.'},
+  {id:'e4',prompt:'Should young people read more books? Write your opinion in about 60 words.',model:'I think young people should read more books. First, reading helps them learn new words and ideas that they cannot get from short videos. Second, books improve their imagination and concentration. Although the internet is also useful, I believe reading books is one of the best ways to develop the mind.'},
+  {id:'e5',prompt:'Is it better to travel alone or with friends? About 50-60 words.',model:'I prefer traveling with friends. First, sharing new experiences with friends makes the trip more fun and memorable. Second, it is safer because we can help each other when there is trouble. Although traveling alone gives us more freedom, I think traveling with friends is more enjoyable and reassuring.'},
+  {id:'e6',prompt:'Do you think it is good for children to have pets? About 50-60 words.',model:'I think it is good for children to have pets. First, taking care of a pet teaches them to be responsible. Second, playing with animals helps children relax and feel happy. Although pets need time and money, I believe the experience is valuable for a child\'s growth.'},
+  {id:'e7',prompt:'Should schools give students more homework? About 50-60 words.',model:'I do not think schools should give students more homework. First, students already spend many hours studying at school, so they need time to rest. Second, too much homework can make them dislike learning. Instead, I think a small amount of useful homework is better than a large amount.'},
+  {id:'e8',prompt:'Is it better to study in the morning or at night? About 50-60 words.',model:'I think studying in the morning is better. First, our minds are fresh after sleeping, so we can concentrate well. Second, studying early leaves more free time in the evening to relax. Although some people feel calm at night, I believe the morning is the best time to learn.'},
+  {id:'e9',prompt:'Do you think online learning is as good as classroom learning? About 50-60 words.',model:'I do not think online learning is as good as classroom learning. First, in a classroom, students can ask teachers questions easily and get quick answers. Second, studying with friends keeps them motivated. Although online learning is convenient, I believe face-to-face lessons help students learn more deeply.'},
+  {id:'e10',prompt:'Should people use public transportation more often? About 50-60 words.',model:'I think people should use public transportation more often. First, trains and buses reduce the number of cars, so the air becomes cleaner. Second, using public transport is cheaper than driving a car every day. For these reasons, I believe it is good for both people and the environment.'},
+  {id:'e11',prompt:'Is it important to learn about foreign cultures? About 50-60 words.',model:'I think it is important to learn about foreign cultures. First, understanding other cultures helps us respect people who are different from us. Second, it gives us new ideas and ways of thinking. In a global world, I believe learning about other cultures makes us wiser and kinder.'},
+  {id:'e12',prompt:'Do you think money is the most important thing for happiness? About 50-60 words.',model:'I do not think money is the most important thing for happiness. First, good health and time with family and friends matter more than money. Second, people who have a lot of money are not always happy. Although money is necessary for daily life, I believe true happiness comes from other things.'}
+];
+const ESSAY_CHECK=['最初に立場をはっきり書く（I think / I prefer ...）','理由を2つ示す（First, ... Second, ...）','具体例や説明を加えている','最後に結論で締めている','語数の目安を守り、つづり・時制・冠詞を見直す'];
+
+function load(){
+  try{const raw=localStorage.getItem(STORE_KEY);if(raw)return JSON.parse(raw);
+    const init={progress:{},essays:{}};localStorage.setItem(STORE_KEY,JSON.stringify(init));return init;
+  }catch(e){if(!mem)mem={progress:{},essays:{}};return mem;}
+}
+function save(){try{localStorage.setItem(STORE_KEY,JSON.stringify(state));}catch(e){mem=state;}}
+let state=load();
+if(!state.progress)state.progress={};
+if(!state.essays)state.essays={};
+
+const $=id=>document.getElementById(id);
+const screen=$('screen');
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function norm(s){return s.toLowerCase().replace(/[.,!?;:]/g,'').replace(/\s+/g,' ').trim()}
+function topicName(id){const o=TOPICS.find(x=>x.id===id);return o?o.name:''}
+function lv(l){return l==='easy'?'<span class="lvb easy">やさしい</span>':l==='hard'?'<span class="lvb hard">応用</span>':'<span class="lvb std">標準</span>';}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1600)}
+function pop(){const p=document.createElement('div');p.className='pop';const e=['⭐','✨','🎉','💫'];for(let i=0;i<8;i++){const s=document.createElement('span');s.textContent=e[i%4];s.style.setProperty('--dx',(Math.random()*200-100)+'px');s.style.setProperty('--dy',(-Math.random()*160-40)+'px');p.appendChild(s)}document.body.appendChild(p);setTimeout(()=>p.remove(),800)}
+function record(id,ok){state.progress[id]={done:true,correct:ok};save()}
+function weakGrammar(){return GRAMMAR.filter(g=>state.progress[g.id]&&state.progress[g.id].correct===false)}
+
+/* ===== ホーム ===== */
+function renderHome(){
+  const drillIds=GRAMMAR.map(g=>g.id).concat(TRANS.map(t=>t.id));
+  const done=drillIds.filter(id=>state.progress[id]&&state.progress[id].done).length;
+  const correct=drillIds.filter(id=>state.progress[id]&&state.progress[id].correct).length;
+  const total=drillIds.length;
+  const rate=done?Math.round(correct/done*100):0;
+  const C=2*Math.PI*42,off=C*(1-(done/total));
+  const weakN=weakGrammar().length;
+  const tchips=TOPICS.map(t=>{const n=GRAMMAR.filter(g=>g.t===t.id).length;
+    return `<div class="chip" onclick="startGrammar('${t.id}')">${t.name}<small>${n}問</small></div>`}).join('');
+  screen.innerHTML=`
+    <div class="ring-card">
+      <div class="ring"><svg width="96" height="96">
+        <circle cx="48" cy="48" r="42" fill="none" stroke="var(--border)" stroke-width="9"/>
+        <circle cx="48" cy="48" r="42" fill="none" stroke="var(--primary)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/>
+      </svg><div class="pct"><b>${done}</b><small>/${total}問</small></div></div>
+      <div class="ring-info"><h2>学習のじょうたい</h2>
+        <div class="stat"><div>解いた<b>${done}</b></div><div>正答率<b>${rate}%</b></div></div></div>
+    </div>
+    ${weakN?`<div class="section-label">🔁 復習</div><div class="chips"><div class="chip weak" onclick="startGrammar('review')">⚠️ 苦手だけ<small>${weakN}問</small></div></div>`:''}
+    <div class="section-label">📘 文法ドリル（トピックを選ぶ）</div>
+    <div class="chips">${tchips}</div>
+    <div class="cards2" style="margin-bottom:12px">
+      <div class="mode mix" onclick="startGrammar('mix')"><div class="ic">🎲</div><h3>ミックス</h3><p>全トピックから10問</p></div>
+      <div class="mode review" onclick="startGrammar('review')"><div class="ic">🔁</div><h3>苦手復習</h3><p>間違えた問題だけ</p></div>
+    </div>
+    <div class="section-label">✏️ 英作文</div>
+    <div class="cards2">
+      <div class="mode trans" onclick="startTrans()"><div class="ic">🔤</div><h3>和文英訳</h3><p>日本語を英語に</p></div>
+      <div class="mode essay" onclick="renderEssayList()"><div class="ic">📝</div><h3>自由英作文</h3><p>意見を書く（準1級型）</p></div>
+    </div>`;
+}
+
+/* ===== 文法ドリル ===== */
+let gs={list:[],i:0,score:0,answered:false,placed:[]};
+function startGrammar(topic){
+  let list;
+  if(topic==='mix')list=shuffle(GRAMMAR).slice(0,10);
+  else if(topic==='review'){list=shuffle(weakGrammar());if(!list.length){toast('苦手はまだないよ。まず解いてみよう');return;}}
+  else list=shuffle(GRAMMAR.filter(g=>g.t===topic));
+  gs={list,i:0,score:0,answered:false,placed:[]};
+  renderGrammar();
+}
+function renderGrammar(){
+  if(gs.i>=gs.list.length)return renderGrammarResult();
+  const q=gs.list[gs.i];gs.answered=false;gs.placed=[];
+  let body='';
+  if(q.type==='mc'){
+    body=`<div class="q-card"><div class="q-topic">${topicName(q.t)}${lv(q.level)}</div><div class="q-text">${esc(q.q)}</div></div>
+      <div class="choices">${q.ch.map((c,k)=>`<button class="choice" data-k="${k}" onclick="ansMc(${k})">${esc(c)}</button>`).join('')}</div>`;
+  }else if(q.type==='fill'){
+    body=`<div class="q-card"><div class="q-topic">${topicName(q.t)}${lv(q.level)}</div><div class="q-text">${esc(q.q)}</div></div>
+      <div class="field" style="margin-bottom:12px"><input id="fillIn" placeholder="答えを入力" autocapitalize="off" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkFill()"></div>
+      <button class="btn btn-primary" onclick="checkFill()">こたえる</button>`;
+  }else if(q.type==='order'){
+    const toks=shuffle(q.tok.map((w,k)=>({w,k})));
+    body=`<div class="q-card"><div class="q-topic">${topicName(q.t)}${lv(q.level)}</div><div class="q-jp" style="margin:0;font-size:16px;color:var(--text);font-weight:700">${esc(q.jp)}</div></div>
+      <div class="order-area" id="orderArea"></div>
+      <div class="order-pool" id="orderPool">${toks.map(o=>`<div class="token" data-id="${o.k}" onclick="orderPick(this)">${esc(o.w)}</div>`).join('')}</div>
+      <button class="btn btn-primary" onclick="checkOrder()">チェック</button>`;
+  }
+  screen.innerHTML=`
+    <button class="back" onclick="renderHome()">‹ もどる</button>
+    <div class="mode-head"><h2>📘 文法ドリル</h2><span class="counter">${gs.i+1}/${gs.list.length}</span></div>
+    <div class="progress-line"><i style="width:${gs.i/gs.list.length*100}%"></i></div>
+    <div id="qbody">${body}</div>
+    <div id="gfeed"></div>`;
+  if(q.type==='fill')setTimeout(()=>{const el=$('fillIn');if(el)el.focus()},60);
+}
+function ansMc(k){
+  if(gs.answered)return;gs.answered=true;
+  const q=gs.list[gs.i],ok=k===q.a;
+  document.querySelectorAll('.choice').forEach(b=>{const kk=+b.dataset.k;
+    if(kk===q.a)b.classList.add('correct');else if(kk===k)b.classList.add('wrong');else b.classList.add('dim');b.onclick=null;});
+  finishGrammar(ok,q);
+}
+function checkFill(){
+  if(gs.answered)return;const q=gs.list[gs.i],v=$('fillIn').value;
+  if(!v.trim()){toast('答えを入力してね');return;}
+  gs.answered=true;const ok=q.a.some(a=>norm(a)===norm(v));
+  const inp=$('fillIn');if(inp)inp.disabled=true;
+  finishGrammar(ok,q);
+}
+function orderPick(el){
+  const area=$('orderArea');
+  if(el.parentNode===area){el.classList.remove('placed');$('orderPool').appendChild(el);}
+  else{el.classList.add('placed');area.appendChild(el);}
+}
+function checkOrder(){
+  if(gs.answered)return;const q=gs.list[gs.i];
+  const placed=[...$('orderArea').children].map(e=>e.textContent);
+  if(placed.length<q.tok.length){toast('全部のカードを並べてね');return;}
+  gs.answered=true;const ok=placed.join(' ')===q.tok.join(' ');
+  document.querySelectorAll('#orderPool .token,#orderArea .token').forEach(t=>t.onclick=null);
+  finishGrammar(ok,q,placed.join(' '));
+}
+function finishGrammar(ok,q,userAns){
+  record(q.id,ok);if(ok){gs.score++;pop();}
+  const ansText=q.type==='mc'?q.ch[q.a]:(q.type==='fill'?q.a[0]:q.tok.join(' '));
+  const fb=$('gfeed');
+  fb.innerHTML=`<div class="feedback ${ok?'ok':'ng'}">
+    <div class="label">${ok?'⭕ 正解！':'❌ おしい'}</div>
+    ${ok?'':`<div class="explain" style="margin-bottom:6px">正解: <span class="ans">${esc(ansText)}</span></div>`}
+    <div class="explain">${esc(q.ex||'')}</div>
+  </div>
+  <button class="btn btn-primary" onclick="gNext()">次へ ›</button>`;
+  fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function gNext(){gs.i++;renderGrammar();}
+function renderGrammarResult(){
+  const total=gs.list.length,rate=total?Math.round(gs.score/total*100):0;
+  let emoji='💪',msg='その調子！';
+  if(rate===100){emoji='🏆';msg='全問正解！すばらしい';}
+  else if(rate>=80){emoji='🎉';msg='よくできました';}
+  else if(rate>=50){emoji='👍';msg='間違えた問題は復習で固めよう';}
+  else{emoji='📖';msg='解説を読んで、もう一度';}
+  screen.innerHTML=`
+    <button class="back" onclick="renderHome()">‹ もどる</button>
+    <div class="result"><div class="emoji">${emoji}</div><div class="big">${gs.score}<span style="font-size:26px;color:var(--sub)">/${total}</span></div><h2>${msg}</h2><p>正答率 ${rate}%</p></div>
+    <div class="row2"><button class="btn btn-ghost" onclick="renderHome()">ホーム</button><button class="btn btn-primary" onclick="renderHome()">続ける</button></div>`;
+}
+
+/* ===== 和文英訳 ===== */
+let ts={list:[],i:0,score:0,shown:false};
+function startTrans(){ts={list:shuffle(TRANS),i:0,score:0,shown:false};renderTrans();}
+function renderTrans(){
+  if(ts.i>=ts.list.length)return renderTransResult();
+  const q=ts.list[ts.i];ts.shown=false;
+  screen.innerHTML=`
+    <button class="back" onclick="renderHome()">‹ もどる</button>
+    <div class="mode-head"><h2>🔤 和文英訳</h2><span class="counter">${ts.i+1}/${ts.list.length}</span></div>
+    <div class="progress-line"><i style="width:${ts.i/ts.list.length*100}%"></i></div>
+    <div class="q-card"><div class="q-topic">日本語を英語にしよう</div><div class="q-text">${esc(q.jp)}</div></div>
+    <div class="field" style="margin-bottom:12px"><textarea id="transIn" placeholder="英語で書いてみよう" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea></div>
+    <button class="btn btn-primary" onclick="showTrans()">答え合わせ</button>
+    <div id="tfeed"></div>`;
+  setTimeout(()=>{const el=$('transIn');if(el)el.focus()},60);
+}
+function showTrans(){
+  if(ts.shown)return;ts.shown=true;const q=ts.list[ts.i];
+  $('transIn').setAttribute('readonly','');
+  $('tfeed').innerHTML=`
+    <div class="model-box" style="margin-top:14px"><h4>模範解答</h4>
+      ${q.models.map((m,k)=>`<div class="m"><b>${k+1}.</b>${esc(m)}</div>`).join('')}
+      <ul class="points">${q.points.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>
+    </div>
+    <p class="help" style="margin:0 0 12px">自分の英文と見比べて、意味が通じて文法が合っていれば「書けた」。違っていたら「もう一度」。</p>
+    <div class="row2"><button class="btn btn-ghost" onclick="judgeTrans(false)">もう一度</button><button class="btn btn-success" onclick="judgeTrans(true)">書けた ✓</button></div>`;
+  $('tfeed').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function judgeTrans(ok){record(ts.list[ts.i].id,ok);if(ok){ts.score++;pop();}ts.i++;renderTrans();}
+function renderTransResult(){
+  const total=ts.list.length,rate=total?Math.round(ts.score/total*100):0;
+  screen.innerHTML=`
+    <button class="back" onclick="renderHome()">‹ もどる</button>
+    <div class="result"><div class="emoji">${rate>=80?'🎉':'✏️'}</div><div class="big">${ts.score}<span style="font-size:26px;color:var(--sub)">/${total}</span></div><h2>おつかれさま</h2><p>「書けた」${ts.score}問 / 正答率 ${rate}%</p></div>
+    <div class="row2"><button class="btn btn-ghost" onclick="renderHome()">ホーム</button><button class="btn btn-primary" onclick="startTrans()">もう一回</button></div>`;
+}
+
+/* ===== 自由英作文 ===== */
+function renderEssayList(){
+  screen.innerHTML=`
+    <button class="back" onclick="renderHome()">‹ もどる</button>
+    <div class="mode-head"><h2>📝 自由英作文</h2></div>
+    <p class="help" style="margin:0 0 14px">準1級型の意見論述。自分の意見を書いてから、モデルアンサーとチェックリストで見直そう。書いた英文は保存される。</p>
+    <div class="essay-list">
+      ${ESSAYS.map((e,k)=>{const done=state.essays[e.id]&&state.essays[e.id].length>0;
+        return `<div class="essay-row ${done?'done':''}" onclick="openEssay('${e.id}')"><div class="p">${esc(e.prompt)}</div><div class="tag">${done?'✓ 下書きあり':'未着手'}</div></div>`}).join('')}
+    </div>`;
+}
+function openEssay(id){
+  const e=ESSAYS.find(x=>x.id===id);const saved=state.essays[id]||'';
+  screen.innerHTML=`
+    <button class="back" onclick="renderEssayList()">‹ もどる</button>
+    <div class="mode-head"><h2>📝 自由英作文</h2></div>
+    <div class="q-card"><div class="q-topic">Question</div><div class="q-text" style="font-size:16px">${esc(e.prompt)}</div></div>
+    <div class="field" style="margin-bottom:8px"><textarea id="essayIn" placeholder="ここに英語で意見を書こう"></textarea></div>
+    <div class="help" id="wc" style="margin:0 0 12px">語数: 0</div>
+    <div class="row2" style="margin-bottom:14px"><button class="btn btn-ghost" onclick="saveEssay('${id}')">保存</button><button class="btn btn-primary" onclick="showEssayModel('${id}')">モデルを見る</button></div>
+    <div id="efeed"></div>`;
+  const ta=$('essayIn');ta.value=saved;
+  const wc=()=>{const n=ta.value.trim()?ta.value.trim().split(/\s+/).length:0;$('wc').textContent='語数: '+n;};
+  ta.addEventListener('input',wc);wc();
+}
+function saveEssay(id){state.essays[id]=$('essayIn').value;save();toast('保存したよ ✓');}
+function showEssayModel(id){
+  const e=ESSAYS.find(x=>x.id===id);state.essays[id]=$('essayIn').value;save();
+  $('efeed').innerHTML=`
+    <div class="model-box"><h4>モデルアンサー（あくまで一例）</h4><div class="m">${esc(e.model)}</div></div>
+    <div class="model-box" style="background:#FFF6EF"><h4>自己チェック</h4><ul class="points">${ESSAY_CHECK.map(c=>`<li>${esc(c)}</li>`).join('')}</ul></div>
+    <p class="help" style="margin:0 0 12px">モデルと自分の文を見比べて、チェックリストで足りない点を確認しよう。</p>
+    <div class="row2"><button class="btn btn-ghost" onclick="renderEssayList()">一覧へ</button><button class="btn btn-success" onclick="toast('おつかれさま！');renderEssayList()">見直し完了</button></div>`;
+  $('efeed').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+renderHome();
+</script>
+</body>
+</html>
