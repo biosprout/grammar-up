@@ -326,7 +326,40 @@ const GRAMMAR=[
   {id:'a10',t:'aux',level:'std',type:'mc',q:'___ he nor his brother came.',ch:['Either','Neither','Both','Not'],a:1,ex:'neither A nor B。'},
   {id:'a11',t:'aux',level:'std',type:'mc',q:'We can go ___ by bus or by train.',ch:['either','neither','both','not'],a:0,ex:'either A or B。'},
   {id:'a12',t:'aux',level:'std',type:'mc',q:'It was raining; ___, we went out.',ch:['however','because','therefore','so'],a:0,ex:'逆接の however。'},
-  {id:'a13',t:'aux',level:'std',type:'order',jp:'寝る前に歯を磨きなさい。',tok:['Brush','your','teeth','before','you','go','to','bed']}
+  {id:'a13',t:'aux',level:'std',type:'order',jp:'寝る前に歯を磨きなさい。',tok:['Brush','your','teeth','before','you','go','to','bed']},
+  {id:'ob1',t:'basic',level:'easy',type:'order',jp:'私は毎朝コーヒーを飲む。',tok:['I','drink','coffee','every','morning']},
+  {id:'ob2',t:'basic',level:'easy',type:'order',jp:'彼女は犬を飼っている。',tok:['She','has','a','dog']},
+  {id:'ob3',t:'basic',level:'easy',type:'order',jp:'これは私のかばんです。',tok:['This','is','my','bag']},
+  {id:'ob4',t:'basic',level:'easy',type:'order',jp:'机の上に本が一冊ある。',tok:['There','is','a','book','on','the','desk']},
+  {id:'ote1',t:'tense',level:'easy',type:'order',jp:'私は昨日テニスをした。',tok:['I','played','tennis','yesterday']},
+  {id:'ote2',t:'tense',level:'easy',type:'order',jp:'彼は明日来るでしょう。',tok:['He','will','come','tomorrow']},
+  {id:'ote3',t:'tense',level:'easy',type:'order',jp:'私たちは今、昼食を食べているところだ。',tok:['We','are','having','lunch','now']},
+  {id:'ote4',t:'tense',level:'easy',type:'order',jp:'彼女は先週京都を訪れた。',tok:['She','visited','Kyoto','last','week']},
+  {id:'om1',t:'modal',level:'easy',type:'order',jp:'あなたはここで泳いではいけない。',tok:['You','must','not','swim','here']},
+  {id:'om2',t:'modal',level:'easy',type:'order',jp:'窓を開けてもいいですか。',tok:['May','I','open','the','window']},
+  {id:'om3',t:'modal',level:'easy',type:'order',jp:'私を手伝ってくれますか。',tok:['Could','you','help','me']},
+  {id:'ow1',t:'wh',level:'easy',type:'order',jp:'あなたはどこに住んでいますか。',tok:['Where','do','you','live']},
+  {id:'ow2',t:'wh',level:'easy',type:'order',jp:'これはだれのペンですか。',tok:['Whose','pen','is','this']},
+  {id:'ow3',t:'wh',level:'easy',type:'order',jp:'あなたはなぜ怒っているのですか。',tok:['Why','are','you','angry']},
+  {id:'opr1',t:'prep',level:'easy',type:'order',jp:'私は7時に起きる。',tok:['I','get','up','at','seven']},
+  {id:'opr2',t:'prep',level:'easy',type:'order',jp:'彼は学校までバスで行く。',tok:['He','goes','to','school','by','bus']},
+  {id:'opr3',t:'prep',level:'easy',type:'order',jp:'私の誕生日は5月です。',tok:['My','birthday','is','in','May']},
+  {id:'op1',t:'perf',level:'std',type:'order',jp:'あなたはもう宿題を終えましたか。',tok:['Have','you','finished','your','homework','yet']},
+  {id:'op2',t:'perf',level:'std',type:'order',jp:'私は3回ハワイに行ったことがある。',tok:['I','have','been','to','Hawaii','three','times']},
+  {id:'opa1',t:'pass',level:'std',type:'order',jp:'この歌は世界中で愛されている。',tok:['This','song','is','loved','all','over','the','world']},
+  {id:'opa2',t:'pass',level:'std',type:'order',jp:'その手紙は昨日書かれた。',tok:['The','letter','was','written','yesterday']},
+  {id:'oi1',t:'inf',level:'std',type:'order',jp:'私は医者になりたい。',tok:['I','want','to','be','a','doctor']},
+  {id:'oi2',t:'inf',level:'std',type:'order',jp:'英語を話すことは簡単ではない。',tok:['It','is','not','easy','to','speak','English']},
+  {id:'oi3',t:'inf',level:'std',type:'order',jp:'私は彼女に手伝ってくれるよう頼んだ。',tok:['I','asked','her','to','help','me']},
+  {id:'opt1',t:'part',level:'std',type:'order',jp:'向こうで遊んでいる子供たちを見て。',tok:['Look','at','the','children','playing','over','there']},
+  {id:'opt2',t:'part',level:'std',type:'order',jp:'英語で書かれたこの本は役に立つ。',tok:['This','book','written','in','English','is','useful']},
+  {id:'or1',t:'rel',level:'std',type:'order',jp:'私が昨日会った女性は親切だった。',tok:['The','woman','I','met','yesterday','was','kind']},
+  {id:'or2',t:'rel',level:'std',type:'order',jp:'向こうに立っている男性を知っていますか。',tok:['Do','you','know','the','man','standing','over','there']},
+  {id:'oc1',t:'comp',level:'std',type:'order',jp:'彼は私より速く走る。',tok:['He','runs','faster','than','me']},
+  {id:'oc2',t:'comp',level:'std',type:'order',jp:'これは私が今までに読んだ中で最高の本だ。',tok:['This','is','the','best','book','I','have','ever','read']},
+  {id:'os1',t:'subj',level:'std',type:'order',jp:'もし私が鳥なら、空を飛べるのに。',tok:['If','I','were','a','bird','I','could','fly']},
+  {id:'oa1',t:'aux',level:'std',type:'order',jp:'雨が降っていたので、私たちは家にいた。',tok:['We','stayed','home','because','it','was','raining']},
+  {id:'oa2',t:'aux',level:'std',type:'order',jp:'急ぎなさい、さもないと電車に乗り遅れますよ。',tok:['Hurry','up','or','you','will','miss','the','train']}
 ];
 
 const TRANS=[
@@ -419,7 +452,8 @@ function renderHome(){
         <div class="stat"><div>解いた<b>${done}</b></div><div>正答率<b>${rate}%</b></div></div></div>
     </div>
     ${weakN?`<div class="section-label">🔁 復習</div><div class="chips"><div class="chip weak" onclick="startGrammar('review')">⚠️ 苦手だけ<small>${weakN}問</small></div></div>`:''}
-    <div class="section-label">📘 文法ドリル（トピックを選ぶ）</div>
+    <div class="section-label">📘 文法ドリル</div>
+    <button class="btn btn-accent" style="margin-bottom:12px" onclick="startGrammar('order')">🔀 並び替えだけを練習</button>
     <div class="chips">${tchips}</div>
     <div class="cards2" style="margin-bottom:12px">
       <div class="mode mix" onclick="startGrammar('mix')"><div class="ic">🎲</div><h3>ミックス</h3><p>全トピックから10問</p></div>
@@ -438,6 +472,7 @@ function startGrammar(topic){
   let list;
   if(topic==='mix')list=shuffle(GRAMMAR).slice(0,10);
   else if(topic==='review'){list=shuffle(weakGrammar());if(!list.length){toast('苦手はまだないよ。まず解いてみよう');return;}}
+  else if(topic==='order')list=shuffle(GRAMMAR.filter(g=>g.type==='order')).slice(0,15);
   else list=shuffle(GRAMMAR.filter(g=>g.t===topic));
   gs={list,i:0,score:0,answered:false,placed:[]};
   renderGrammar();
